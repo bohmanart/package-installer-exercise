@@ -1,13 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react'
+import PackageInput from './components/PackageInput/PackageInput'
+import PackageOutput from './components/PackageOutput/PackageOutput'
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    );
-  }
+const packages = [
+    "KittenService: ",
+    "Leetmeme: Cyberportal",
+    "Cyberportal: Ice",
+    "CamelCaser: KittenService",
+    "Fraudstream: Leetmeme",
+    "Ice: "
+]
+
+export default class App extends Component {
+    state = {
+        packages
+    }
+    render() {
+        return (
+            <div>
+                <PackageInput packages={this.state.packages}/>
+                <PackageOutput/>
+            </div>
+        )
+    }
 }
-
-export default App;

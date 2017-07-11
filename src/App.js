@@ -16,13 +16,13 @@ export default class App extends Component {
     //     super(props)
     //     this.state = {
     //         packagesAndDependency,
-    //         packagesToInstall: ''
+    //         packagesToInstall: []
     //     }
     // }
     
     state = {
         packagesAndDependency,
-        packagesToInstall: ''
+        packagesToInstall: []
     }
 
     componentDidMount() {
@@ -32,32 +32,38 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                <PackageInput input={this.state.packagesAndDependency}/>
-                <PackageOutput output={this.state.packagesToInstall}/>
+                <PackageInput input={this.state.packagesAndDependency.join('", \n  "')}/>
+                <PackageOutput output={this.state.packagesToInstall.join(', ')}/>
             </div>
         )
     }
     
     getPackageInstallOrder(arr) {
-        const outputArray = []
+        let outputArray = []
         
         function getOutputArray(arr, fn) {
-            const tempArray = []
-            arr.forEach((val, ind) => {
-                if (fn(val).packageDependency.length) {
-                    // check if dep exists in output array
-                    // if it does then add package name to output array
-                    // if it does not then add val to tempArray
+            let tempArray = []
+
+            arr.forEach(val => {
+                const {packageName, packageDependency} = fn(val)
+                if (packageDependency.length > 0) {
+                    outputArray.includes(packageDependency)
+                        ? outputArray.push(packageName)
+                        : tempArray.push(val)
                 } else {
-                    // no dep so add package name to output array
+                    outputArray.push(packageName)
                 }
-            })
+            });
+
+            (tempArray.length > 0) && getOutputArray(tempArray, fn)
         }
 
-        getOutputArray(arr, this.checkDependency)
+        getOutputArray(arr, this.splitPackage)
+
+        this.setState({packagesToInstall: outputArray})
     }
 
-    checkDependency(str) {
+    splitPackage(str) {
         const packageArray = str.split(': ')
 
         return {

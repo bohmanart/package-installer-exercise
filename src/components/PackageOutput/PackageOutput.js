@@ -1,9 +1,9 @@
 import React from 'react'
 
-const PackageOutput = (props) => (
+const PackageOutput = ({output}) => (
     <div>
         <h2>Output</h2>
-        <samp>"{props.output}"</samp>
+        <samp>"{output}"</samp>
     </div>
 )
 

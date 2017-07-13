@@ -1,17 +1,13 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import PackageInput from './components/PackageInput/PackageInput'
 import PackageOutput from './components/PackageOutput/PackageOutput'
 
-const packagesAndDependency = [
-    "KittenService: ",
-    "Leetmeme: Cyberportal",
-    "Cyberportal: Ice",
-    "CamelCaser: KittenService",
-    "Fraudstream: Leetmeme",
-    "Ice: "
-]
-
 export default class App extends Component {
+    static propTypes = {
+        data: PropTypes.array.isRequired
+    }
+
     // constructor(props) {
     //     super(props)
     //     this.state = {
@@ -21,7 +17,7 @@ export default class App extends Component {
     // }
     
     state = {
-        packagesAndDependency,
+        packagesAndDependency: this.props.data,
         packagesToInstall: []
     }
 
@@ -31,7 +27,7 @@ export default class App extends Component {
     
     render() {
         return (
-            <div>
+            <div style={{margin: '2rem'}}>
                 <PackageInput input={this.state.packagesAndDependency.join('", \n  "')}/>
                 <PackageOutput output={this.state.packagesToInstall.join(', ')}/>
             </div>
@@ -39,32 +35,59 @@ export default class App extends Component {
     }
     
     getPackageInstallOrder(arr) {
-        let outputArray = []
-        
-        function getOutputArray(arr, fn) {
-            let tempArray = []
-
-            arr.forEach(val => {
-                const {packageName, packageDependency} = fn(val)
-                if (packageDependency.length > 0) {
-                    outputArray.includes(packageDependency)
-                        ? outputArray.push(packageName)
-                        : tempArray.push(val)
-                } else {
-                    outputArray.push(packageName)
-                }
-            });
-
-            (tempArray.length > 0) && getOutputArray(tempArray, fn)
-        }
-
-        getOutputArray(arr, this.splitPackage)
+        let outputArray = this.dfsTopoSort(arr)
 
         this.setState({packagesToInstall: outputArray})
     }
 
-    splitPackage(str) {
-        const packageArray = str.split(': ')
+    dfsTopoSort(pkgsArr) {
+        let packages = []
+        let visited = []
+        let sorted = []
+        let hasCycle = false
+
+        pkgsArr.forEach(pkgStr => {
+            const packageObj = this.convertPackage(pkgStr)
+            packages[packageObj.packageName] = packageObj
+        })
+
+        pkgsArr.forEach(pkgStr => {
+            const pkgObj = this.convertPackage(pkgStr)
+            const {packageName} = pkgObj
+            if (!visited.includes(packageName)) {
+                visit(pkgObj)
+            }
+        })
+
+        function visit(pkgObj) {
+            const {packageName, packageDependency} = pkgObj
+
+            console.log(pkgObj)
+
+            visited.push(packageName)
+
+            if (packageDependency) {
+                const dependencyPackageObj = packages[packageDependency]
+
+                if (!visited.includes(packageDependency)) {
+                    console.log('recurse')
+                    visit(dependencyPackageObj)
+                }
+
+                if (!sorted.includes(packageDependency)) {
+                    console.error('cycle exists')
+                    hasCycle = true
+                }
+            }
+
+            sorted.push(packageName)
+        }
+
+        return hasCycle ? ['Error: invalid dependency specification contains cycle'] : sorted
+    }
+
+    convertPackage(pkgStr) {
+        const packageArray = pkgStr.split(': ')
 
         return {
             packageName: packageArray[0],

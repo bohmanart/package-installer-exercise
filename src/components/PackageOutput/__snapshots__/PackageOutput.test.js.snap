@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PackageOutput component renders correctly 1`] = `
+<div>
+  <h2>
+    Output
+  </h2>
+  <samp>
+    "
+    KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
+    "
+  </samp>
+</div>
+`;

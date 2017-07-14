@@ -9,7 +9,7 @@ const packagesAndDependency = [
     "Cyberportal: Ice",
     "CamelCaser: KittenService",
     "Fraudstream: Leetmeme",
-    "Ice: ",
+    "Ice: "
 
     // CYCLES
 
@@ -18,11 +18,11 @@ const packagesAndDependency = [
     // "Cyberportal: Ice",
     // "CamelCaser: KittenService",
     // "Fraudstream: ",
-    // "Ice: Leetmeme",
+    // "Ice: Leetmeme"
 
     // "Leetmeme: Cyberportal",
     // "Cyberportal: Ice",
-    // "Ice: Leetmeme",
+    // "Ice: Leetmeme"
 
     // "KittenService: CamelCaser",
     // "CamelCaser: KittenService"

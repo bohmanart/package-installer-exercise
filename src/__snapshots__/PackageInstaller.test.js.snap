@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PackageInstaller/> should render mount as expected 1`] = `
+<PackageInstaller
+  cycleError="ERROR: dependency specification contains cycle and is therefore invalid"
+  input={
+    Array [
+      "KittenService: ",
+      "Leetmeme: Cyberportal",
+      "Cyberportal: Ice",
+      "CamelCaser: KittenService",
+      "Fraudstream: Leetmeme",
+      "Ice: ",
+    ]
+  }
+>
+  <div
+    style={
+      Object {
+        "margin": "2rem",
+      }
+    }
+  >
+    <h1>
+      Package Installer
+    </h1>
+    <p>
+      A package installer takes a list of packages with dependencies, and installs the packages in order such that an install won’t fail due to a missing dependency. This project represents code that will determine the order of install.
+    </p>
+    <PackageInput
+      input="KittenService: \\", 
+      \\"Leetmeme: Cyberportal\\", 
+      \\"Cyberportal: Ice\\", 
+      \\"CamelCaser: KittenService\\", 
+      \\"Fraudstream: Leetmeme\\", 
+      \\"Ice: "
+    >
+      <div>
+        <h2>
+          Input
+        </h2>
+        <pre>
+          <code>
+            [
+            <br />
+              "
+            KittenService: ", 
+              "Leetmeme: Cyberportal", 
+              "Cyberportal: Ice", 
+              "CamelCaser: KittenService", 
+              "Fraudstream: Leetmeme", 
+              "Ice: 
+            "
+            <br />
+            ]
+          </code>
+        </pre>
+      </div>
+    </PackageInput>
+    <PackageOutput
+      output="KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream"
+    >
+      <div>
+        <h2>
+          Output
+        </h2>
+        <samp>
+          "
+          KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
+          "
+        </samp>
+      </div>
+    </PackageOutput>
+  </div>
+</PackageInstaller>
+`;
+
+exports[`<PackageInstaller/> should render shallow as expected 1`] = `
+<div
+  style={
+    Object {
+      "margin": "2rem",
+    }
+  }
+>
+  <h1>
+    Package Installer
+  </h1>
+  <p>
+    A package installer takes a list of packages with dependencies, and installs the packages in order such that an install won’t fail due to a missing dependency. This project represents code that will determine the order of install.
+  </p>
+  <PackageInput
+    input="KittenService: \\", 
+    \\"Leetmeme: Cyberportal\\", 
+    \\"Cyberportal: Ice\\", 
+    \\"CamelCaser: KittenService\\", 
+    \\"Fraudstream: Leetmeme\\", 
+    \\"Ice: "
+  />
+  <PackageOutput
+    output={Array []}
+  />
+</div>
+`;

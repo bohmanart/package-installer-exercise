@@ -11,7 +11,16 @@ const packagesAndDependency = [
     'Fraudstream: Leetmeme',
     'Ice: '
 
-    // CYCLES
+    // DEPENDENCY DOES NOT EXIST
+
+    // 'KittenService: ',
+    // 'Leetmeme: Cyberportal',
+    // 'Cyberportal: Ice',
+    // 'CamelCaser: KittenService',
+    // 'Fraudstream: Leetmeme',
+    // 'Ice: LoxodontaAfricana'
+
+    // CYCLES EXIST
 
     // 'KittenService: ',
     // 'Leetmeme: Cyberportal',

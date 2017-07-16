@@ -1,6 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PackageInput component renders correctly 1`] = `
+exports[`<PackageInput/> should render \`h2\`, \`pre\` and \`code\` elements 1`] = `
+<div>
+  <h2>
+    Input
+  </h2>
+  <pre>
+    <code>
+      [
+      <br />
+        "
+      "
+      <br />
+      ]
+    </code>
+  </pre>
+</div>
+`;
+
+exports[`<PackageInput/> should render a code example of an array with package names and dependencies from an array passed in 1`] = `
 <div>
   <h2>
     Input

@@ -1,6 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PackageOutput component renders correctly 1`] = `
+exports[`<PackageOutput/> should render \`h2\` and \`samp\` elements 1`] = `
+<div>
+  <h2>
+    Output
+  </h2>
+  <samp>
+    "
+    "
+  </samp>
+</div>
+`;
+
+exports[`<PackageOutput/> should render a sample output of a comma seperated list of package names from a string passed in 1`] = `
 <div>
   <h2>
     Output

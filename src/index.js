@@ -28,4 +28,4 @@ const packagesAndDependency = [
     // "CamelCaser: KittenService"
 ]
 
-render(<App data={packagesAndDependency} />, document.getElementById('root'))
+render(<App input={packagesAndDependency} />, document.getElementById('root'))

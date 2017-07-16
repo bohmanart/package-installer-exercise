@@ -5,7 +5,7 @@ import PackageOutput from './components/PackageOutput/PackageOutput'
 
 export default class App extends Component {
     static propTypes = {
-        data: PropTypes.array.isRequired
+        input: PropTypes.array.isRequired
     }
 
     // constructor(props) {
@@ -17,7 +17,7 @@ export default class App extends Component {
     // }
     
     state = {
-        packagesAndDependency: this.props.data,
+        packagesAndDependency: this.props.input,
         packagesToInstall: []
     }
 
@@ -45,6 +45,7 @@ export default class App extends Component {
         let visited = []
         let sorted = []
         let hasCycle = false
+        const error = 'Error: invalid dependency specification contains cycle'
 
         pkgsArr.forEach(pkgStr => {
             const packageObj = this.convertPackage(pkgStr)
@@ -62,7 +63,7 @@ export default class App extends Component {
         function visit(pkgObj) {
             const {packageName, packageDependency} = pkgObj
 
-            console.log(pkgObj)
+            !hasCycle && console.log(pkgObj)
 
             visited.push(packageName)
 
@@ -75,7 +76,7 @@ export default class App extends Component {
                 }
 
                 if (!sorted.includes(packageDependency)) {
-                    console.error('cycle exists')
+                    console.error(error)
                     hasCycle = true
                 }
             }
@@ -83,7 +84,7 @@ export default class App extends Component {
             sorted.push(packageName)
         }
 
-        return hasCycle ? ['Error: invalid dependency specification contains cycle'] : sorted
+        return hasCycle ? [error] : sorted
     }
 
     convertPackage(pkgStr) {

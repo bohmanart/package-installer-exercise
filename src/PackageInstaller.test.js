@@ -8,7 +8,7 @@ describe('<PackageInstaller/>', () => {
     
     it('should accept an array of strings', () => {
         const input = ['a: b', 'b: ']
-        
+
         expect(new PackageInstaller({input}).props.input).toBe(input)
     })
 
@@ -67,6 +67,7 @@ describe('<PackageInstaller/>', () => {
                 'Fraudstream: ',
                 'Ice: Leetmeme'
             ]
+
             const component = shallow(<PackageInstaller input={input}/>)
             const dfsTopoSort = component.instance().dfsTopoSort(input)
             const actual = () => component.instance().errorChecker(dfsTopoSort)
@@ -79,7 +80,20 @@ describe('<PackageInstaller/>', () => {
 
 
     it('should output a comma seperated string of package names', () => {
+        const input = [
+            'KittenService: ',
+            'Leetmeme: Cyberportal',
+            'Cyberportal: Ice',
+            'CamelCaser: KittenService',
+            'Fraudstream: Leetmeme',
+            'Ice: '
+        ]
+        
+        const component = shallow(<PackageInstaller input={input}/>)
+        const actual = component.instance().dfsTopoSort(input)
+        const expected = 'KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream'
 
+        expect(actual).toEqual(expected)
     })
 
 })

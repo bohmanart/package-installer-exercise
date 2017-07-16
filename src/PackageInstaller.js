@@ -3,41 +3,35 @@ import PropTypes from 'prop-types'
 import PackageInput from './components/PackageInput/PackageInput'
 import PackageOutput from './components/PackageOutput/PackageOutput'
 
-export default class App extends Component {
+export default class PackageInstaller extends Component {
     static propTypes = {
         input: PropTypes.array.isRequired
     }
-
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         packagesAndDependency,
-    //         packagesToInstall: []
-    //     }
-    // }
     
     state = {
-        packagesAndDependency: this.props.input,
-        packagesToInstall: []
+        input: this.props.input,
+        output: []
     }
 
     componentDidMount() {
-        this.getPackageInstallOrder(this.state.packagesAndDependency)
+        this.getPackageInstallOrder(this.state.input)
     }
     
     render() {
         return (
             <div style={{margin: '2rem'}}>
-                <PackageInput input={this.state.packagesAndDependency.join('", \n  "')}/>
-                <PackageOutput output={this.state.packagesToInstall.join(', ')}/>
+                <h1>Package Installer</h1>
+                <p>A package installer takes a list of packages with dependencies, and installs the packages in order such that an install won’t fail due to a missing dependency. This project represents code that will determine the order of install.</p>
+                <PackageInput input={this.state.input.join('", \n  "')}/>
+                <PackageOutput output={this.state.output.join(', ')}/>
             </div>
         )
     }
     
     getPackageInstallOrder(arr) {
-        let outputArray = this.dfsTopoSort(arr)
+        let output = this.dfsTopoSort(arr)
 
-        this.setState({packagesToInstall: outputArray})
+        this.setState({output})
     }
 
     dfsTopoSort(pkgsArr) {
@@ -45,16 +39,18 @@ export default class App extends Component {
         let visited = []
         let sorted = []
         let hasCycle = false
-        const error = 'Error: invalid dependency specification contains cycle'
+        const error = 'Error: dependency specification contains cycle and is therefore invalid'
 
         pkgsArr.forEach(pkgStr => {
             const packageObj = this.convertPackage(pkgStr)
+            
             packages[packageObj.packageName] = packageObj
         })
 
         pkgsArr.forEach(pkgStr => {
             const pkgObj = this.convertPackage(pkgStr)
             const {packageName} = pkgObj
+
             if (!visited.includes(packageName)) {
                 visit(pkgObj)
             }

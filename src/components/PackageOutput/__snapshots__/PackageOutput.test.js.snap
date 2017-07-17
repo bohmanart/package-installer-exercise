@@ -5,10 +5,14 @@ exports[`<PackageOutput/> should render \`h2\` and \`samp\` elements 1`] = `
   <h2>
     Output
   </h2>
-  <samp>
-    "
-    "
-  </samp>
+  <pre
+    className="PackageOutput"
+  >
+    <samp>
+      "
+      "
+    </samp>
+  </pre>
 </div>
 `;
 
@@ -17,10 +21,14 @@ exports[`<PackageOutput/> should render a sample output of a comma seperated lis
   <h2>
     Output
   </h2>
-  <samp>
-    "
-    KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
-    "
-  </samp>
+  <pre
+    className="PackageOutput"
+  >
+    <samp>
+      "
+      KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
+      "
+    </samp>
+  </pre>
 </div>
 `;

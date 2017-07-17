@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import PackageInput from './components/PackageInput/PackageInput'
 import PackageOutput from './components/PackageOutput/PackageOutput'
 
+import './PackageInstaller.css'
+
 export default class PackageInstaller extends Component {
     static propTypes = {
         input: PropTypes.array.isRequired
@@ -24,7 +26,7 @@ export default class PackageInstaller extends Component {
     
     render() {
         return (
-            <div style={{margin: '2rem'}}>
+            <div className="PackageInstaller">
                 <h1>Package Installer</h1>
                 <p>A package installer takes a list of packages with dependencies, and installs the packages in order such that an install won’t fail due to a missing dependency. This project represents code that will determine the order of install.</p>
                 <PackageInput input={this.state.input.join('", \n  "')}/>

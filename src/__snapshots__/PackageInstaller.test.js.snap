@@ -16,11 +16,7 @@ exports[`<PackageInstaller/> should render mount as expected 1`] = `
   }
 >
   <div
-    style={
-      Object {
-        "margin": "2rem",
-      }
-    }
+    className="PackageInstaller"
   >
     <h1>
       Package Installer
@@ -40,7 +36,9 @@ exports[`<PackageInstaller/> should render mount as expected 1`] = `
         <h2>
           Input
         </h2>
-        <pre>
+        <pre
+          className="PackageInput"
+        >
           <code>
             [
             <br />
@@ -65,11 +63,15 @@ exports[`<PackageInstaller/> should render mount as expected 1`] = `
         <h2>
           Output
         </h2>
-        <samp>
-          "
-          KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
-          "
-        </samp>
+        <pre
+          className="PackageOutput"
+        >
+          <samp>
+            "
+            KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
+            "
+          </samp>
+        </pre>
       </div>
     </PackageOutput>
   </div>
@@ -78,11 +80,7 @@ exports[`<PackageInstaller/> should render mount as expected 1`] = `
 
 exports[`<PackageInstaller/> should render shallow as expected 1`] = `
 <div
-  style={
-    Object {
-      "margin": "2rem",
-    }
-  }
+  className="PackageInstaller"
 >
   <h1>
     Package Installer

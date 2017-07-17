@@ -12,9 +12,6 @@ describe('<PackageInstaller/>', () => {
         expect(new PackageInstaller({input}).props.input).toBe(input)
     })
 
-    // it('should expect each string to have a name followed by a colon and space', () => {
-    // })
-
     describe('should render', () => {
         let input
 

@@ -5,7 +5,9 @@ exports[`<PackageInput/> should render \`h2\`, \`pre\` and \`code\` elements 1`]
   <h2>
     Input
   </h2>
-  <pre>
+  <pre
+    className="PackageInput"
+  >
     <code>
       [
       <br />
@@ -23,7 +25,9 @@ exports[`<PackageInput/> should render a code example of an array with package n
   <h2>
     Input
   </h2>
-  <pre>
+  <pre
+    className="PackageInput"
+  >
     <code>
       [
       <br />

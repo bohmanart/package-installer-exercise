@@ -1,11 +1,14 @@
 import React from 'react'
+import './PackageInput.css'
 
 const PackageInput = ({input}) => (
     <div>
         <h2>Input</h2>
-        <pre><code>[<br/>
-        &nbsp;&nbsp;"{input}"
-        <br/>]</code></pre>
+        <pre className="PackageInput">
+            <code>[<br/>
+            &nbsp;&nbsp;"{input}"
+            <br/>]</code>
+        </pre>
     </div>
 )
 

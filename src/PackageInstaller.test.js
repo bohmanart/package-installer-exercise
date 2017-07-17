@@ -47,16 +47,23 @@ describe('<PackageInstaller/>', () => {
 
     describe('should reject', () => {
 
-        // test('if a dependency does not exist', () => {
-        //     const input = [
-        //         'KittenService: ',
-        //         'Leetmeme: Cyberportal',
-        //         'Cyberportal: Ice',
-        //         'CamelCaser: KittenService',
-        //         'Fraudstream: Leetmeme',
-        //         'Ice: LoxodontaAfricana'
-        //     ]
-        // })
+        test('if a dependency does not exist', () => {
+            const input = [
+                'KittenService: ',
+                'Leetmeme: Cyberportal',
+                'Cyberportal: Ice',
+                'CamelCaser: KittenService',
+                'Fraudstream: Leetmeme',
+                'Ice: LoxodontaAfricana'
+            ]
+
+            const component = shallow(<PackageInstaller input={input}/>)
+            const dfsTopoSort = component.instance().dfsTopoSort(input)
+            const actual = () => component.instance().errorChecker(dfsTopoSort)
+            const expected = 'ERROR: dependency specification contains a dependency that does not exist and is therefore invalid'
+
+            expect(actual).toThrowError(expected)
+        })
 
         test('if a cycle exists', () => {
             const input = [
@@ -88,7 +95,7 @@ describe('<PackageInstaller/>', () => {
             'Fraudstream: Leetmeme',
             'Ice: '
         ]
-        
+
         const component = shallow(<PackageInstaller input={input}/>)
         const actual = component.instance().dfsTopoSort(input)
         const expected = 'KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream'

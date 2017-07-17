@@ -9,7 +9,8 @@ export default class PackageInstaller extends Component {
     }
 
     static defaultProps = {
-        cycleError: 'ERROR: dependency specification contains cycle and is therefore invalid'
+        dependencyCycleError: 'ERROR: dependency specification contains cycle and is therefore invalid',
+        dependencyAbsentError: 'ERROR: dependency specification contains a dependency that does not exist and is therefore invalid'
     }
     
     state = {
@@ -44,7 +45,8 @@ export default class PackageInstaller extends Component {
         let packages = []
         let visited = []
         let sorted = []
-        let hasCycle = false
+        let hasCycleDependency = false
+        let hasAbsentDependency = false
 
         pkgsArr.forEach(pkgStr => {
             const packageObj = this.convertPackage(pkgStr)
@@ -56,7 +58,7 @@ export default class PackageInstaller extends Component {
             const pkgObj = this.convertPackage(pkgStr)
             const {packageName} = pkgObj
 
-            if(!visited.includes(packageName)) {
+            if (!visited.includes(packageName)) {
                 visit(pkgObj)
             }
         })
@@ -64,27 +66,36 @@ export default class PackageInstaller extends Component {
         function visit(pkgObj) {
             const {packageName, packageDependency} = pkgObj
 
-            // !hasCycle && console.log(pkgObj)
-
             visited.push(packageName)
 
-            if(packageDependency) {
+            if (packageDependency) {
                 const dependencyPackageObj = packages[packageDependency]
 
-                if(!visited.includes(packageDependency)) {
+                if (dependencyPackageObj && !visited.includes(packageDependency)) {
                     // console.log('RECURSE')
                     visit(dependencyPackageObj)
                 }
 
-                if(!sorted.includes(packageDependency)) {
-                    hasCycle = true
+                if (dependencyPackageObj && !sorted.includes(packageDependency)) {
+                    hasCycleDependency = true
                 }
+
+                if (!dependencyPackageObj) {
+                    hasAbsentDependency = true
+                }
+
             }
 
             sorted.push(packageName)
         }
 
-        return hasCycle ? this.props.cycleError : sorted.join(', ')
+        if (hasCycleDependency) {
+            return this.props.dependencyCycleError
+        } else if (hasAbsentDependency) {
+            return this.props.dependencyAbsentError
+        } else {
+            return sorted.join(', ')
+        }
     }
 
     convertPackage(pkgStr) {
@@ -97,8 +108,12 @@ export default class PackageInstaller extends Component {
     }
 
     errorChecker(output) {
-        if(output === this.props.cycleError) {
-            throw this.props.cycleError
+        if (output === this.props.dependencyCycleError) {
+            throw this.props.dependencyCycleError
+        }
+
+        if (output === this.props.dependencyAbsentError) {
+            throw this.props.dependencyAbsentError
         }
     }
 

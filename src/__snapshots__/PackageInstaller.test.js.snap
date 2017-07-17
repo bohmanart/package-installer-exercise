@@ -2,7 +2,8 @@
 
 exports[`<PackageInstaller/> should render mount as expected 1`] = `
 <PackageInstaller
-  cycleError="ERROR: dependency specification contains cycle and is therefore invalid"
+  dependencyAbsentError="ERROR: dependency specification contains a dependency that does not exist and is therefore invalid"
+  dependencyCycleError="ERROR: dependency specification contains cycle and is therefore invalid"
   input={
     Array [
       "KittenService: ",
